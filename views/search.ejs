@@ -47,22 +47,22 @@
     <section id="search-results" class="search-results-grid">
       <% donors.forEach(donor => { %>
         <a href="#" class="donor-card">
-          <h4><%= donor.name %> <span class="ms-2 badge bg-danger"><%= donor.bloodGroup ?? 'N/A' %></span>
+          <h4><%= donor.name %> <span class="blood-group-badge"><%= donor.bloodGroup ?? 'N/A' %></span>
          <% 
             let available = 'Not Available';
-            let badgeClass = 'bg-secondary'; // red by default
+            let badgeClass = 'verified-badge'; // red by default
             if (donor.lastDonation) {
               const last = new Date(donor.lastDonation);
               const now = new Date();
               const diffMonths = (now.getFullYear() - last.getFullYear()) * 12 + (now.getMonth() - last.getMonth());
               if (diffMonths >= 4) {
                 available = 'Available';
-                badgeClass = 'bg-secondary'; // green
+                badgeClass = 'verified-badge'; // green
               }
             }
           %>
 
-          <span class="ms-2 badge <%= badgeClass %>"><%= available %></span>
+          <span class=" <%= badgeClass %>"><%= available %></span>
           
           </h4>
           <p>ঠিকানা: <%= donor.address %></p>
