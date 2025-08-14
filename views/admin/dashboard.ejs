@@ -1,0 +1,45 @@
+<h2>স্বাগতম, অ্যাডমিন!</h2>
+<p>এখানে আপনি ড্যাশবোর্ডের প্রধান তথ্য দেখতে পাবেন।</p>
+
+<div class="row">
+  <!-- Total Donors -->
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-primary">
+      <div class="card-body">
+        <h5 class="card-title">মোট ডোনার</h5>
+        <p class="card-text fs-3"><%= totalDonors %></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Available Donors -->
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-success">
+      <div class="card-body">
+        <h5 class="card-title">Available ডোনার</h5>
+        <p class="card-text fs-3"><%= availableDonors %></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Not Available Donors -->
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-danger">
+      <div class="card-body">
+        <h5 class="card-title">Not Available ডোনার</h5>
+        <p class="card-text fs-3"><%= notAvailableDonors %></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donated Before -->
+  <div class="col-md-3 mb-3">
+    <div class="card text-white bg-warning">
+      <div class="card-body">
+        <h5 class="card-title">পূর্বে রক্ত দিয়েছিল</h5>
+        <p class="card-text fs-3"><%= donatedBefore %></p>
+      </div>
+    </div>
+  </div>
+</div>
+

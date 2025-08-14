@@ -1,0 +1,37 @@
+<header class="header">
+  <div class="container">
+    <h1 class="site-title">সিংগাইর ব্লাডলাইন</h1>
+    <nav class="nav">
+      <button class="hamburger-menu" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <ul class="nav-list">
+        <li>
+          <a class="<%= activePage === 'home' ? 'active' : '' %>" href="/"
+            >হোম</a
+          >
+        </li>
+        <li>
+          <a class="<%= activePage === 'search' ? 'active' : '' %>" href="/search"
+            >ডোনার খুঁজুন</a
+          >
+        </li>
+        <li>
+          <a class="<%= activePage === 'about' ? 'active' : '' %>" href="/about"
+            >আমাদের সম্পর্কে</a
+          >
+        </li>
+        <li>
+          <a class="<%= activePage === 'login' ? 'active' : '' %>" href="/login"
+            >অ্যাডমিন লগইন</a
+          >
+        </li>
+      </ul>
+      <a  href="/register" class="button button-secondary donate-now-button"
+        >ডোনেট করুন</a
+      >
+    </nav>
+  </div>
+</header>

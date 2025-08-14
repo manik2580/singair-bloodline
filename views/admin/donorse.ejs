@@ -1,0 +1,31 @@
+<div>
+  <h2>ডোনার তালিকা</h2>
+  <div>
+    <a class="button button-primary" href="/admin/donors">Add donor</a>
+  </div>
+
+  <!-- <!-- <table class="table table-striped"> -->
+    <thead>
+      <tr>
+        <th>নাম</th>
+        <th>রক্তের গ্রুপ</th>
+        <th>ফোন</th>
+        <th>শহর</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (donors && donors.length > 0) { %> <% donors.forEach(donor => { %>
+      <tr>
+        <td><%= donor.name %></td>
+        <td><%= donor.bloodGroup %></td>
+        <td><%= donor.phone %></td>
+        <td><%= donor.city %></td>
+      </tr>
+      <% }) %> <% } else { %>
+      <tr>
+        <td colspan="4" class="text-center">কোন ডোনার পাওয়া যায়নি।</td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table> -->
+</div>

@@ -1,0 +1,109 @@
+<section class="container page-content">
+  <h2 class="page-title">ডোনার রেজিস্ট্রেশন</h2>
+  <div class="registration-form">
+    <div id="msg" style="margin-bottom: 15px"></div>
+    <form id="donor-registration-form" class="card">
+      <div class="form-group">
+        <label for="full-name">পুরো নামঃ</label>
+        <input type="text" id="full-name" name="name" required />
+      </div>
+      <div class="form-group">
+        <label for="blood-group">রক্তের গ্রুপঃ</label>
+        <select id="blood-group" name="bloodGroup" required>
+          <option value="">নির্বাচন করুন</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mobile-number">মোবাইল নাম্বারঃ</label>
+        <input
+          type="tel"
+          id="mobile-number"
+          name="phone"
+          pattern="01[0-9]{9}"
+          placeholder="01XXXXXXXXX"
+          required
+        />
+        <small>ফর্ম্যাট: 01XXXXXXXXX (১১ সংখ্যা)</small>
+      </div>
+      <div class="form-group">
+        <label for="address">ঠিকানাঃ</label>
+        <textarea id="address" name="address" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>পূর্বে রক্ত দিয়েছেনঃ</label>
+        <div class="radio-group">
+          <input
+            type="radio"
+            id="donated-yes"
+            name="donated_before"
+            value="1"
+            required
+          />
+          <label for="donated-yes">হ্যাঁ</label>
+          <input
+            type="radio"
+            id="donated-no"
+            name="donated_before"
+            value="0"
+            required
+          />
+          <label for="donated-no">না</label>
+        </div>
+      </div>
+      <button type="submit" class="button button-primary">
+        রেজিস্ট্রেশন করুন
+      </button>
+    </form>
+
+    <div id="success-message" class="success-message" style="display: none">
+      রেজিস্ট্রেশন সফল হয়েছে!
+    </div>
+  </div>
+</section>
+
+<script>
+  const f = document.getElementById("donor-registration-form");
+  const msg = document.getElementById("msg");
+  f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("msg");
+    msg.innerHTML = "";
+    const body = Object.fromEntries(new FormData(f).entries());
+    const res = await fetch("/api/donors", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      msg.innerHTML = `<div class="error-message">${
+        data.message || "Login failed"
+      }</div>`;
+
+      // Remove message after 10 seconds
+      setTimeout(() => {
+        msg.innerHTML = "";
+      }, 3000); // 10000 ms = 10 seconds
+
+      return;
+    }
+
+    //clear all data
+    document.getElementById("full-name").value = "";
+    document.getElementById("blood-group").value = "";
+    document.getElementById("mobile-number").value = "";
+    document.getElementById("address").value = "";
+    document.querySelector('input[name="donated_before"]:checked').checked = false;
+    document.getElementById("success-message").style.display = "block";
+    // go to admin dashboard
+    // window.location = "/admin/dashboard";
+  });
+</script>

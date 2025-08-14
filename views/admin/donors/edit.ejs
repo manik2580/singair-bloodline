@@ -1,0 +1,154 @@
+<div>
+  <h2>নতুন ডোনার যোগ করুন</h2>
+  <div class="d-flex justify-content-end mb-3">
+    <a href="/admin/donors" class="btn btn-primary">সব ডোনার</a>
+  </div>
+
+  <div id="success-message" class="success-message" style="display: none">
+      রেজিস্ট্রেশন সফল হয়েছে!
+  </div>
+
+  <div id="msg" style="margin-bottom: 15px"></div>
+
+  <form id="donor-registration-form" method="POST" class="mb-3">
+    <div class="mb-3">
+      <label for="name" class="form-label">নাম</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="form-control"
+        value="<%= donor.name %>"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="bloodGroup" class="form-label">রক্তের গ্রুপ</label>
+      <select
+        id="bloodGroup"
+        name="bloodGroup"
+        class="form-select"
+        required
+      >
+        <option value="">নির্বাচন করুন</option>
+        <option value="A+" <% if (donor.bloodGroup === 'A+') { %> selected <% } %>>A+</option>
+        <option value="A-" <% if (donor.bloodGroup === 'A-') { %> selected <% } %>>A-</option>
+        <option value="B+" <% if (donor.bloodGroup === 'B+') { %> selected <% } %>>B+</option>
+        <option value="B-" <% if (donor.bloodGroup === 'B-') { %> selected <% } %>>B-</option>
+        <option value="O+" <% if (donor.bloodGroup === 'O+') { %> selected <% } %>>O+</option>
+        <option value="O-" <% if (donor.bloodGroup === 'O-') { %> selected <% } %>>O-</option>
+        <option value="AB+" <% if (donor.bloodGroup === 'AB+') { %> selected <% } %>>AB+</option>
+        <option value="AB-" <% if (donor.bloodGroup === 'AB-') { %> selected <% } %>>AB-</option>
+    </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">ফোন নম্বর</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        class="form-control"
+        value="<%= donor.phone %>"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">ঠিকানা</label>
+      <input
+        type="text"
+        id="address"
+        name="address"
+        class="form-control"
+        value="<%= donor.address %>"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label>পূর্বে রক্ত দিয়েছেনঃ</label>
+      <div class="radio-group">
+        <input
+          type="radio"
+          id="donated-yes"
+          name="is_donated_before"
+          value="1"
+          required
+          <% if (donor.is_donated_before) { %> checked <% } %>
+        />
+        <label for="donated-yes">হ্যাঁ</label>
+        <input
+          type="radio"
+          id="donated-no"
+          name="is_donated_before"
+          value="0"
+          required
+        <% if (!donor.is_donated_before) { %> checked <% } %>
+        />
+        <label for="donated-no">না</label>
+      </div>
+    </div>
+
+     <div class="col-md-6 mb-3">
+      <label for="lastDonation" class="form-label">সর্ব শেষ রক্ত দেওয়ার তারিখ</label>
+      <input
+        type="date"
+        id="lastDonation"
+        name="lastDonation"
+        class="form-control"
+        value="<%= donor.lastDonation ? donor.lastDonation.toISOString().split('T')[0] : '' %>"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">সাবমিট</button>
+    <a href="/admin/donors" class="btn btn-secondary">বাতিল</a>
+  </form>
+</div>
+
+<script>
+  const f = document.getElementById("donor-registration-form");
+  const msg = document.getElementById("msg");
+  f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("msg");
+    msg.innerHTML = "";
+    const body = Object.fromEntries(new FormData(f).entries());
+    const res = await fetch("/api/donors/<%= donor.id %>", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      msg.innerHTML = `<div class="error-message">${
+        data.message || "Login failed"
+      }</div>`;
+
+      // Remove message after 10 seconds
+      setTimeout(() => {
+        msg.innerHTML = "";
+      }, 3000); // 10000 ms = 10 seconds
+
+      return;
+    }
+    
+    // return 
+    //clear all data
+    // document.getElementById("name").value = "";
+    // document.getElementById("bloodGroup").value = "";
+    // document.getElementById("phone").value = "";
+    // document.getElementById("address").value = "";
+    // document.querySelector('input[name="is_donated_before"]:checked').checked = false;
+    // document.getElementById("success-message").style.display = "block";
+
+    // setTimeout(() => {
+    //     document.getElementById("success-message").style.display = "none";
+    // }, 3000); // Hide success message after 3 seconds
+
+    // go to admin dashboard
+    window.location = "/admin/donors";
+  });
+</script>

@@ -1,0 +1,51 @@
+<div>
+  <h2>ডোনার তালিকা</h2>
+  <div class="d-flex justify-content-end mb-3">
+    <a href="/admin/donors/create" class="btn btn-primary">নতুন ডোনার</a>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>সিরিয়াল</th>
+        <th>নাম</th>
+        <th>রক্তের গ্রুপ</th>
+        <th>ফোন</th>
+        <th>ঠিকানা</th>
+        <th>পূর্বে রক্ত দিয়েছেন</th>
+        <th>সর্ব শেষ রক্ত দিয়েছেন</th>
+        <th>অ্যাকশন</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (donors && donors.length > 0) { %> <% donors.forEach((donor, index)=> { %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= donor.name %></td>
+        <td><%= donor.bloodGroup ?? 'N/A' %></td>
+        <td><%= donor.phone %></td>
+        <td><%= donor.address %></td>
+        <td><%= donor.is_donated_before ? 'হ্যাঁ' : 'না' %></td>
+        <td><%= donor.lastDonation ? new Date(donor.lastDonation).toLocaleDateString('bn-BD') : 'N/A' %></td>
+        <td>
+          <a href="/admin/donors/edit/<%= donor.id %>" class="btn btn-secondary"
+            >সম্পাদনা</a
+          >
+          <form
+            action="/admin/donors/delete/<%= donor.id %>"
+            method="POST"
+            style="display: inline"
+            onsubmit="return confirm('আপনি কি সত্যিই ডোনার মুছতে চান?');"
+          >
+            <button type="submit" class="btn btn-danger">মুছুন</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %> <% } else { %>
+      <tr>
+        <td colspan="8" class="text-center">কোন ডোনার পাওয়া যায়নি।</td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>

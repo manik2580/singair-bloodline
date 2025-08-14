@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title || "Dashboard" %></title>
+
+    <!-- Bootstrap CSS CDN (you can replace with local files if you prefer) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Optional: Your custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        width: 220px;
+        top: 0;
+        left: 0;
+        background: #343a40;
+        color: white;
+        padding-top: 60px;
+      }
+      .sidebar a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 10px 20px;
+      }
+      .sidebar a.active,
+      .sidebar a:hover {
+        background-color: #495057;
+        color: #ffc107;
+      }
+      .content {
+        margin-left: 220px;
+        padding: 20px;
+        flex-grow: 1;
+        background: #f8f9fa;
+        min-height: 100vh;
+      }
+      .header {
+        position: fixed;
+        top: 0;
+        left: 220px;
+        right: 0;
+        height: 60px;
+        background: #fff;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <h4 class="text-center">ড্যাশবোর্ড</h4>
+      <a
+        href="/admin/dashboard"
+        class="<%= (activePage === 'dashboard') ? 'active' : '' %>"
+        >হোম</a
+      >
+      <a
+        href="/admin/donors"
+        class="<%= (activePage === 'donors') ? 'active' : '' %>"
+        >ডোনার তালিকা</a
+      >
+      <!-- <a
+        href="/admin/settings"
+        class="<%= (activePage === 'settings') ? 'active' : '' %>"
+        >সেটিংস</a
+      > -->
+      <a href="#" id="logout">লগ আউট</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+      <h5><%= title || "Dashboard" %></h5>
+    </header>
+
+    <!-- Main content -->
+    <main class="content"><%- body %></main>
+
+    <!-- Bootstrap JS Bundle CDN (Popper + Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById("logout").addEventListener("click", async () => {
+        await fetch("/api/auth/logout", { method: "POST" });
+        window.location = "/login";
+      });
+    </script>
+  </body>
+</html>

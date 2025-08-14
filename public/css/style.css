@@ -1,0 +1,933 @@
+/* Color Variables */
+:root {
+    --primary-red: #e53935;
+    /* A slightly brighter, more vibrant red */
+    --primary-red-dark: #c62828;
+    /* Darker shade for hover */
+    --secondary-gray-light: #f8f9fa;
+    /* Very light gray for backgrounds */
+    --secondary-gray-medium: #e9ecef;
+    /* Slightly darker gray for borders/accents */
+    --text-dark: #212529;
+    /* Darker text for better contrast */
+    --text-medium: #495057;
+    /* Medium gray for secondary text */
+    --text-light: #ffffff;
+    /* White for text on dark backgrounds */
+    --border-color: #dee2e6;
+    /* Light border for inputs/cards */
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    /* Softer shadow */
+    --hover-shadow-color: rgba(0, 0, 0, 0.15);
+    /* Slightly more pronounced hover shadow */
+    --verified-color: #28a745;
+    /* Green for verified */
+    --hero-background-dark-gray: #343a40;
+    /* Dark charcoal for hero section */
+}
+
+/* Base Styles */
+body {
+    font-family: "Noto Sans Bengali", "Inter", sans-serif;
+    /* Noto Sans Bengali for Bengali text, Inter for others */
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--secondary-gray-light);
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Noto Sans Bengali", "Inter", sans-serif;
+    /* Apply Noto Sans Bengali to headings */
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    /* Consistent spacing */
+    font-weight: 700;
+    /* Bolder headings */
+}
+
+h1 {
+    font-size: 2.8em;
+}
+
+h2 {
+    font-size: 2.2em;
+}
+
+h3 {
+    font-size: 1.7em;
+}
+
+/* Header */
+.header {
+    background-color: var(--primary-red);
+    color: var(--text-light);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 8px var(--shadow-color);
+    /* More prominent shadow */
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.site-title {
+    font-size: 1.8em;
+    margin: 0;
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+/* Navigation - Mobile First (Hamburger Menu) */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    background-color: var(--primary-red);
+    position: absolute;
+    top: 65px;
+    /* Below header */
+    left: 0;
+    z-index: 999;
+    box-shadow: 0 3px 8px var(--shadow-color);
+}
+
+.nav-list.active {
+    display: flex;
+}
+
+.nav-list li {
+    margin: 0;
+}
+
+.nav-list li a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+}
+
+.nav-list li a:hover,
+.nav-list li a.active {
+    background-color: rgba(255, 255, 255, 0.25);
+    /* Lighter hover effect */
+}
+
+.hamburger-menu {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-left: auto;
+}
+
+.hamburger-menu .bar {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: var(--text-light);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Donate Now Button in Navbar */
+.donate-now-button {
+    background-color: var(--text-light);
+    /* White background */
+    color: var(--primary-red);
+    /* Red text */
+    border: none;
+    /* No border for primary button */
+    padding: 10px 20px;
+    border-radius: 25px;
+    /* More rounded */
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+    display: none;
+}
+
+.donate-now-button:hover {
+    background-color: var(--secondary-gray-medium);
+    /* Subtle hover */
+    color: var(--primary-red-dark);
+    box-shadow: 0 4px 10px var(--hover-shadow-color);
+    transform: translateY(-2px);
+}
+
+/* Desktop Navigation (Media Query) */
+@media (min-width: 768px) {
+    .hamburger-menu {
+        display: none;
+    }
+
+    .nav-list {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        position: static;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .nav-list li a {
+        padding: 10px 15px;
+    }
+
+    .donate-now-button {
+        display: block;
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    background-color: var(--hero-background-dark-gray);
+    color: var(--text-light);
+    text-align: center;
+    padding: 120px 0;
+    /* More vertical padding */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+    /* Taller hero */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    /* Wider content area */
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    /* Larger heading */
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: var(--text-light);
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    /* Larger paragraph */
+    margin-bottom: 40px;
+    line-height: 1.7;
+    opacity: 0.9;
+    /* Slightly softer text */
+}
+
+.hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* More space between buttons */
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 600px) {
+    .hero-content h1 {
+        font-size: 4.5em;
+    }
+
+    .hero-buttons {
+        flex-direction: row;
+    }
+}
+
+/* General Page Content */
+.page-content {
+    padding: 60px 20px;
+    /* More padding for main content */
+}
+
+.page-title {
+    font-size: 2.5em;
+    color: var(--primary-red);
+    text-align: center;
+    margin-bottom: 50px;
+    /* More space below title */
+    position: relative;
+}
+
+.page-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    /* Wider underline */
+    height: 4px;
+    /* Thicker underline */
+    background-color: var(--primary-red);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.section-title {
+    font-size: 2em;
+    color: var(--primary-red);
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-red);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 14px 30px;
+    /* Larger padding */
+    border: none;
+    border-radius: 8px;
+    /* Consistent rounding */
+    font-size: 1.05em;
+    /* Slightly larger font */
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px var(--shadow-color);
+    /* Softer shadow */
+}
+
+.button.button-primary {
+    background-color: var(--primary-red);
+    color: var(--text-light);
+}
+
+.button.button-primary:hover {
+    background-color: var(--primary-red-dark);
+    box-shadow: 0 5px 12px var(--hover-shadow-color);
+    transform: translateY(-3px);
+    /* More pronounced lift */
+}
+
+.button.button-secondary {
+    background-color: var(--text-light);
+    color: var(--primary-red);
+    border: 2px solid var(--primary-red);
+}
+
+.button.button-secondary:hover {
+    background-color: var(--primary-red);
+    color: var(--text-light);
+    box-shadow: 0 5px 12px var(--hover-shadow-color);
+    transform: translateY(-3px);
+}
+
+.button.button-danger {
+    background-color: #dc3545;
+    /* Bootstrap danger red */
+    color: var(--text-light);
+    border: none;
+}
+
+.button.button-danger:hover {
+    background-color: #c82333;
+    box-shadow: 0 5px 12px var(--hover-shadow-color);
+    transform: translateY(-3px);
+}
+
+.button.small-button {
+    padding: 10px 20px;
+    /* Adjusted small button size */
+    font-size: 0.9em;
+    border-radius: 6px;
+}
+
+/* Card Design */
+.card {
+    background-color: var(--text-light);
+    border-radius: 12px;
+    /* More rounded corners */
+    box-shadow: 0 6px 15px var(--shadow-color);
+    /* Deeper shadow */
+    padding: 35px;
+    /* More padding inside cards */
+    margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    /* More lift on hover */
+    box-shadow: 0 10px 20px var(--hover-shadow-color);
+}
+
+/* Forms */
+.login-form,
+.search-form,
+.donor-form,
+.registration-form {
+    max-width: 650px;
+    /* Slightly wider forms */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    /* More space between form groups */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    /* More space below label */
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 1.05em;
+    /* Slightly larger label font */
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    /* Larger input fields */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: "Noto Sans Bengali", "Inter", sans-serif;
+    /* Apply Noto Sans Bengali to form inputs */
+    font-size: 1em;
+    color: var(--text-dark);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-red);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(229, 57, 53, 0.25);
+    /* More prominent focus ring */
+}
+
+.form-group small {
+    font-size: 0.88em;
+    /* Slightly larger hint text */
+    color: var(--text-medium);
+    margin-top: 8px;
+    display: block;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    /* More space between radio options */
+    margin-top: 8px;
+}
+
+@media (min-width: 480px) {
+    .radio-group {
+        flex-direction: row;
+        gap: 25px;
+    }
+}
+
+.radio-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Space between radio button and label */
+    cursor: pointer;
+}
+
+.form-group .inline-label {
+    display: inline-block;
+    margin-left: 8px;
+    font-weight: normal;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    /* More space between action buttons */
+    margin-top: 35px;
+}
+
+@media (min-width: 480px) {
+    .form-actions {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+}
+
+/* Messages */
+.error-message {
+    color: var(--primary-red-dark);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 1em;
+    background-color: #ffebee;
+    /* Light red background */
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ef9a9a;
+}
+
+.success-message {
+    background-color: #e8f5e9;
+    /* Light green for success */
+    color: #2e7d32;
+    /* Dark green text */
+    border: 1px solid #a5d6a7;
+    padding: 18px;
+    text-align: center;
+    margin-top: 25px;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+/* Home Page Sections (if re-added) */
+.about-us-section,
+.how-to-donate-section,
+.campaigns-section {
+    padding: 80px 0;
+    /* More vertical padding */
+}
+
+.about-content {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.15em;
+    /* Slightly larger text */
+    line-height: 1.8;
+}
+
+.about-content p {
+    margin-bottom: 25px;
+}
+
+.steps-grid,
+.campaigns-grid {
+    display: grid;
+    gap: 35px;
+    /* More space between grid items */
+    margin-top: 50px;
+}
+
+@media (min-width: 600px) {
+    .steps-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        /* Slightly larger min-width */
+    }
+
+    .campaigns-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+.step-card,
+.campaign-card {
+    background-color: var(--text-light);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px var(--shadow-color);
+    padding: 30px;
+    /* More padding */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover,
+.campaign-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 10px 20px var(--hover-shadow-color);
+}
+
+.step-card .icon {
+    font-size: 3.5em;
+    /* Larger icons */
+    color: var(--primary-red);
+    margin-bottom: 20px;
+}
+
+.step-card h3,
+.campaign-card h3 {
+    font-size: 1.4em;
+    margin-bottom: 12px;
+    color: var(--primary-red);
+}
+
+.campaign-card p {
+    font-size: 1em;
+    margin-bottom: 12px;
+    color: var(--text-medium);
+}
+
+/* Search Results Grid (Card Layout) */
+.search-results-grid {
+    display: grid;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+@media (min-width: 600px) {
+    .search-results-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+.donor-card {
+    background-color: var(--text-light);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px var(--shadow-color);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.donor-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 10px 20px var(--hover-shadow-color);
+    text-decoration: none;
+}
+
+.donor-card h4 {
+    font-size: 1.3em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--primary-red);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    text-decoration: none;
+}
+
+.donor-card p {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.donor-card .phone-link {
+    color: var(--primary-red);
+    text-decoration: none;
+    font-weight: 600;
+    transition: text-decoration 0.3s ease;
+}
+
+.donor-card .phone-link:hover {
+    text-decoration: underline;
+}
+
+.blood-group-badge {
+    display: inline-block;
+    background-color: var(--primary-red);
+    color: var(--text-light);
+    padding: 6px 12px;
+    /* Larger badge */
+    font-size: 0.85em;
+    font-weight: 700;
+    border-radius: 6px;
+    margin-left: 12px;
+}
+
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--verified-color);
+    color: var(--text-light);
+    padding: 6px 12px;
+    font-size: 0.85em;
+    font-weight: 700;
+    border-radius: 6px;
+    margin-left: 12px;
+}
+
+.verified-badge i {
+    margin-right: 6px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 25px;
+    border: 1px solid var(--border-color);
+    background-color: var(--text-light);
+    color: var(--text-medium);
+    margin-top: 40px;
+    font-size: 1.05em;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+/* Admin Panel Table */
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px var(--shadow-color);
+}
+
+.donors-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    min-width: 800px;
+    /* Ensure table doesn't get too narrow */
+}
+
+.donors-table th,
+.donors-table td {
+    border: 1px solid var(--border-color);
+    padding: 15px 18px;
+    /* More padding in table cells */
+    text-align: left;
+    font-size: 0.95em;
+}
+
+.donors-table th {
+    background-color: var(--secondary-gray-medium);
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.donors-table tbody tr:nth-child(even) {
+    background-color: #f3f4f6;
+    /* Slightly darker even rows */
+}
+
+.donors-table .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media (min-width: 480px) {
+    .donors-table .action-buttons {
+        flex-direction: row;
+    }
+}
+
+.donors-table .action-buttons .button {
+    padding: 10px 15px;
+    font-size: 0.85em;
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.donors-table .edit-button {
+    background-color: #007bff;
+    /* Blue for edit */
+    color: var(--text-light);
+}
+
+.donors-table .edit-button:hover {
+    background-color: #0056b3;
+}
+
+.donors-table .delete-button {
+    background-color: #dc3545;
+    /* Red for delete */
+    color: var(--text-light);
+}
+
+.donors-table .delete-button:hover {
+    background-color: #c82333;
+}
+
+.add-donor-section,
+.donor-list-section {
+    margin-bottom: 50px;
+}
+
+.add-donor-section h3,
+.donor-list-section h3 {
+    font-size: 1.8em;
+    color: var(--primary-red);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* About Page Specific Styles */
+.about-section-content {
+    display: grid;
+    gap: 35px;
+}
+
+@media (min-width: 768px) {
+    .about-section-content {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+.about-card h3 {
+    color: var(--primary-red);
+    margin-bottom: 18px;
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 25px;
+}
+
+.contact-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 1.05em;
+    color: var(--text-dark);
+}
+
+.contact-list li i {
+    color: var(--primary-red);
+    margin-right: 12px;
+    font-size: 1.3em;
+}
+
+.social-icons-contact {
+    margin-top: 25px;
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+}
+
+.social-icons-contact a {
+    color: var(--primary-red);
+    font-size: 2em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons-contact a:hover {
+    color: var(--primary-red-dark);
+    transform: translateY(-4px);
+}
+
+/* Donor Profile Page Styles */
+.donor-profile-container {
+    max-width: 750px;
+    margin: 50px auto;
+}
+
+.donor-profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    background-color: var(--text-light);
+    border-radius: 15px;
+    /* More rounded */
+    box-shadow: 0 8px 20px var(--shadow-color);
+    /* Deeper shadow */
+}
+
+.donor-profile-image {
+    width: 140px;
+    /* Larger image */
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 25px;
+    border: 4px solid var(--primary-red);
+    /* Thicker border */
+}
+
+.donor-profile-card h3 {
+    font-size: 2.2em;
+    margin-bottom: 12px;
+    color: var(--primary-red);
+}
+
+.donor-profile-card .blood-group-badge {
+    font-size: 1.2em;
+    padding: 8px 15px;
+    margin-bottom: 25px;
+}
+
+.donor-profile-details {
+    width: 100%;
+    text-align: left;
+    margin-top: 30px;
+}
+
+.donor-profile-details p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    color: var(--text-dark);
+}
+
+.donor-profile-details p i {
+    color: var(--primary-red);
+    margin-right: 12px;
+    font-size: 1.3em;
+    width: 28px;
+    text-align: center;
+}
+
+.donor-profile-details .verified-badge {
+    margin-left: 0;
+    margin-top: 8px;
+    display: inline-flex;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
