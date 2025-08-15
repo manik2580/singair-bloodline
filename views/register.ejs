@@ -5,7 +5,7 @@
     <form id="donor-registration-form" class="card">
       <div class="form-group">
         <label for="full-name">পুরো নামঃ</label>
-        <input type="text" id="full-name" name="name" required />
+        <input type="text" id="name" name="name" required />
       </div>
       <div class="form-group">
         <label for="blood-group">রক্তের গ্রুপঃ</label>
@@ -37,73 +37,30 @@
         <label for="address">ঠিকানাঃ</label>
         <textarea id="address" name="address" rows="3" required></textarea>
       </div>
+      <!-- <div class="form-group donated-checkbox">
+        <input
+          type="checkbox"
+          id="donated_before"
+          name="is_donated_before"
+          value="1"
+          class="form-check-input"
+        />
+        <label for="donated_before">পূর্বে রক্ত দিয়েছেন?</label>
+      </div> -->
+
       <div class="form-group">
-        <label>পূর্বে রক্ত দিয়েছেনঃ</label>
-        <div class="radio-group">
-          <input
-            type="radio"
-            id="donated-yes"
-            name="donated_before"
-            value="1"
-            required
-          />
-          <label for="donated-yes">হ্যাঁ</label>
-          <input
-            type="radio"
-            id="donated-no"
-            name="donated_before"
-            value="0"
-            required
-          />
-          <label for="donated-no">না</label>
-        </div>
+        <label for="donated_before">পূর্বে রক্ত দিয়েছেন?</label>
+        <select id="donated_before" name="is_donated_before" required>
+          <option value="0">না</option>
+          <option value="1">হ্যাঁ</option>
+        </select>
       </div>
+
       <button type="submit" class="button button-primary">
         রেজিস্ট্রেশন করুন
       </button>
     </form>
 
-    <div id="success-message" class="success-message" style="display: none">
-      রেজিস্ট্রেশন সফল হয়েছে!
-    </div>
   </div>
 </section>
 
-<script>
-  const f = document.getElementById("donor-registration-form");
-  const msg = document.getElementById("msg");
-  f.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    console.log("msg");
-    msg.innerHTML = "";
-    const body = Object.fromEntries(new FormData(f).entries());
-    const res = await fetch("/api/donors", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      msg.innerHTML = `<div class="error-message">${
-        data.message || "Login failed"
-      }</div>`;
-
-      // Remove message after 10 seconds
-      setTimeout(() => {
-        msg.innerHTML = "";
-      }, 3000); // 10000 ms = 10 seconds
-
-      return;
-    }
-
-    //clear all data
-    document.getElementById("full-name").value = "";
-    document.getElementById("blood-group").value = "";
-    document.getElementById("mobile-number").value = "";
-    document.getElementById("address").value = "";
-    document.querySelector('input[name="donated_before"]:checked').checked = false;
-    document.getElementById("success-message").style.display = "block";
-    // go to admin dashboard
-    // window.location = "/admin/dashboard";
-  });
-</script>

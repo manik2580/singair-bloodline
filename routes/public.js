@@ -25,6 +25,7 @@ router.get("/register", (req, res) => {
     title: "ডোনার রেজিস্ট্রেশন",
     activePage: "register",
     layout: "layouts/public.ejs",
+    scripts: ["js/register.js"], // include register.js script
   });
 });
 
