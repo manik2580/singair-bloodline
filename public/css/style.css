@@ -970,3 +970,7 @@ h3 {
   font-size: 4rem;
   color: red;
 }
+
+.text-danger {
+  color: var(--primary-red-dark);
+}

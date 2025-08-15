@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("donor-search-form");
   const results = document.getElementById("search-results");
   const resetBtn = document.getElementById("reset-search-filters");
+  const bloodGroups = document.querySelectorAll("input[name='bloodGroup']");
 
   async function fetchDonors(params = {}) {
     const query = new URLSearchParams(params).toString();
@@ -36,6 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // On form submit
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    const bloodGroup = document.getElementById('blood-group').value;
+    const errorDiv = document.getElementById('bloodGroupError');
+    if (!bloodGroup) {
+      errorDiv.style.display = 'block'; // Show error
+      return; // Prevent form submission
+    } else {
+      errorDiv.style.display = 'none'; // Hide error if valid
+    }
     const formData = new FormData(form);
     const filters = Object.fromEntries(formData);
     fetchDonors(filters);
@@ -44,7 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Reset filters
   resetBtn.addEventListener("click", () => {
     form.reset();
-    fetchDonors();
+    // fetchDonors();
+    results.innerHTML = "";
   });
 
   // Load donors initially
