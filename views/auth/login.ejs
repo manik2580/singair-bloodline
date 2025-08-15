@@ -1,0 +1,40 @@
+<div class="card shadow p-4" style="width: 100%; max-width: 400px">
+  <h2 class="text-center mb-4">অ্যাডমিন লগইন</h2>
+  <p class="text-center mb-4">আপনার অ্যাডমিন প্যানেলে প্রবেশ করতে নিচের ফর্মটি পূরণ করুন।</p>
+
+  <!-- Error Message -->
+  <div id="login-error-message" class="mb-3"></div>
+
+  <form id="admin-login-form">
+    <!-- Username -->
+    <div class="mb-3">
+      <label for="username" class="form-label">ইউজারনেম</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="form-control"
+        placeholder="আপনার ইউজারনেম লিখুন"
+        required
+      />
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label for="password" class="form-label">পাসওয়ার্ড</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="আপনার পাসওয়ার্ড লিখুন"
+        required
+      />
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">লগইন করুন</button>
+    </div>
+  </form>
+</div>

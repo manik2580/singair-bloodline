@@ -1,0 +1,38 @@
+<section class="container py-5">
+    
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">ডোনার বিবরণ</h2>
+    <a href="/admin/donors" class="btn btn-secondary"
+      >← ডোনার তালিকায় ফিরে যান</a
+    >
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="card-title"><%= donor.name %></h3>
+      <p class="card-text">
+        <strong>রক্তের গ্রুপ:</strong> <%= donor.bloodGroup || 'N/A' %><br />
+        <strong>ফোন:</strong>
+        <a href="tel:<%= donor.phone %>"><%= donor.phone %></a><br />
+        <strong>ঠিকানা:</strong> <%= donor.address %><br />
+        <strong>পূর্বে রক্ত দিয়েছেন:</strong> <%= donor.is_donated_before ?
+        'হ্যাঁ' : 'না' %><br />
+        <strong>সর্বশেষ রক্ত দিয়েছেন:</strong>
+        <%= donor.lastDonation ? new
+        Date(donor.lastDonation).toLocaleDateString('bn-BD') : 'N/A' %>
+      </p>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <a href="/admin/donors/edit/<%= donor.id %>" class="btn btn-primary me-2"
+        >✏ সম্পাদনা</a
+      >
+      <form
+        action="/admin/donors/delete/<%= donor.id %>"
+        method="POST"
+        onsubmit="return confirm('আপনি কি সত্যিই এই ডোনার মুছে ফেলতে চান?');"
+      >
+        <button type="submit" class="btn btn-danger">🗑 মুছুন</button>
+      </form>
+    </div>
+  </div>
+</section>

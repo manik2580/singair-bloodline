@@ -12,6 +12,7 @@ const authRouter = require('./routes/Api/auth');
 
 const publicRoutes = require('./routes/public');
 const adminRoutes = require('./routes/admin');
+const adminAuthRoutes = require('./routes/adminAuth');
 
 
 
@@ -60,17 +61,18 @@ app.use('/api', (req, res) => {
 // admin routes
 app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
+app.use('/auth', adminAuthRoutes);
 
-app.get('/login', (req, res) => {
-  if (req.session && req.session.isAdmin) {
-    return res.redirect('/admin/dashboard');
-  }
-  res.render('login', { 
-    title: 'Admin Login',
-    layout: 'layouts/public.ejs', 
-    activePage: 'login'
-    });
-});
+// app.get('/admin/login', (req, res) => {
+//   if (req.session && req.session.isAdmin) {
+//     return res.redirect('/admin/dashboard');
+//   }
+//   res.render('login', { 
+//     title: 'Admin Login',
+//     layout: 'layouts/public.ejs', 
+//     activePage: 'login'
+//     });
+// });
 
 // Dashboard routes 404
 app.use('/admin', (req, res) => {
