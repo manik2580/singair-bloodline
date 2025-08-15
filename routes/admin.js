@@ -6,7 +6,8 @@ function isAdmin(req, res, next) {
   if (req.session && req.session.isAdmin) {
     next();
   } else {
-    res.status(401).send('Unauthorized');
+    return res.redirect('/login');
+    // res.status(401).send('Unauthorized');
   }
 }
 
@@ -41,7 +42,7 @@ router.get('/dashboard', async(req, res) => {
 
     res.render('admin/dashboard', {
       title: 'ড্যাশবোর্ড',
-      layout: 'admin/layout',
+      layout: 'layouts/dashboard.ejs',
       activePage: 'dashboard',
       totalDonors,
       availableDonors,
@@ -66,6 +67,7 @@ router.get('/donors', async(req, res) => {
         title: 'ডোনার তালিকা',
         layout: 'admin/layout',
         activePage: 'donors',
+        layout: 'layouts/dashboard.ejs',
         donors: donors  // pass donor list to template
         });
     } catch (err) {
@@ -79,7 +81,8 @@ router.get('/donors/create', (req, res) => {
   res.render('admin/donors/create', {
     title: 'নতুন ডোনার যোগ করুন',
     layout: 'admin/layout',
-    activePage: 'donors'
+    activePage: 'donors',
+    layout: 'layouts/dashboard.ejs',
   });
 });
 
@@ -95,6 +98,7 @@ router.get('/donors/edit/:id', async(req, res) => {
     title: 'ডোনার সম্পাদনা',
     layout: 'admin/layout',
     activePage: 'donors',
+    layout: 'layouts/dashboard.ejs',
     donor: donor
   });
 });

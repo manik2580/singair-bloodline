@@ -48,68 +48,48 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error('MongoDB connection error:', err);
 });
 
-// routes
+//Api routes
 app.use('/api/donors', donorsRouter);
 app.use('/api/auth', authRouter);
+// 404 handler for API routes
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: 'API endpoint not found' });
+});
+
 
 // admin routes
 app.use('/', publicRoutes);
 app.use('/admin', adminRoutes);
 
-// public routes
-// app.get('/', (req, res) => {
-//     res.render('index', { title: 'হোম পেজ' });
-// });
-
-// app.get('/about', (req, res) => {
-//     res.render('about', { title: 'আমাদের সম্পর্কে' });
-// });
-// app.get('/search', (req, res) => {
-//     res.render('search', { title: 'অনুসন্ধান' });
-// });
-
 app.get('/login', (req, res) => {
   if (req.session && req.session.isAdmin) {
     return res.redirect('/admin/dashboard');
   }
-  res.render('login', { title: 'Admin Login', activePage: 'login'  });
+  res.render('login', { 
+    title: 'Admin Login',
+    layout: 'layouts/public.ejs', 
+    activePage: 'login'
+    });
 });
 
-// Protected admin content route (simple check)
-// app.get('/admin/dashboard', (req, res) => {
-//   if (!req.session || !req.session.isAdmin) {
-//     return res.redirect('/login');
-//     // return res.status(401).json({ message: 'Unauthorized' });
-//   }
-//   res.render('admin/dashboard', {
-//     title: 'ড্যাশবোর্ড',
-//     layout: 'admin/layout',
-//     activePage: 'dashboard'
-//   });
-//   // res.sendFile(path.join(__dirname, 'public/admin/dashboard.html'));
-// });
+// Dashboard routes 404
+app.use('/admin', (req, res) => {
+  res.status(404).render('errors/404-dashboard', {
+    title: 'পৃষ্ঠা পাওয়া যায়নি (ড্যাশবোর্ড)',
+    layout: 'layouts/dashboard.ejs',
+    activePage: ''
+  });
+});
 
-// // Sample donors data (in real app, fetch from MongoDB)
-// const donors = [
-//   { name: "রাফি", bloodGroup: "A+", phone: "017xxxxxxx1", city: "সিংগাইর" },
-//   { name: "নাসরিন", bloodGroup: "B-", phone: "018xxxxxxx2", city: "ঢাকা" },
-//   { name: "তাহমিনা", bloodGroup: "O+", phone: "019xxxxxxx3", city: "চট্টগ্রাম" }
-// ];
-
-// app.get('/admin/donors', (req, res) => {
-//   if (!req.session || !req.session.isAdmin) {
-//     return res.status(401).json({ message: 'Unauthorized' });
-//   }
-//   res.render('admin/donors', {
-//     title: 'ডোনার তালিকা',
-//     layout: 'admin/layout',
-//     activePage: 'donors',
-//     donors: donors
-//   });
-// });
+// Public site 404
+app.use((req, res) => {
+  res.status(404).render('errors/404-public', {
+    title: 'পৃষ্ঠা পাওয়া যায়নি',
+    layout: 'layouts/public.ejs',
+    activePage: ''
+  });
+});
 
 
-// fallback
-app.use((req, res) => res.status(404).send('Not Found'));
 
 app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));

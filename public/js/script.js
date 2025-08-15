@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       navList.classList.toggle("active")
     })
   }
+  
 
   // --- Helper Functions for LocalStorage ---
 

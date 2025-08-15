@@ -1,0 +1,46 @@
+ body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar {
+        height: 100vh;
+        position: fixed;
+        width: 220px;
+        top: 0;
+        left: 0;
+        background: #343a40;
+        color: white;
+        padding-top: 14px;
+      }
+      .sidebar a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 10px 20px;
+      }
+      .sidebar a.active,
+      .sidebar a:hover {
+        background-color: #495057;
+        color: #ffc107;
+      }
+      .content {
+        margin-left: 220px;
+        padding: 20px;
+        flex-grow: 1;
+        background: #f8f9fa;
+        min-height: 100vh;
+      }
+      .header {
+        position: fixed;
+        top: 0;
+        left: 220px;
+        right: 0;
+        height: 60px;
+        background: #fff;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+      }

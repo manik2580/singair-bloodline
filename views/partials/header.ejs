@@ -23,11 +23,7 @@
             >আমাদের সম্পর্কে</a
           >
         </li>
-        <li>
-          <a class="<%= activePage === 'login' ? 'active' : '' %>" href="/login"
-            >অ্যাডমিন লগইন</a
-          >
-        </li>
+  
       </ul>
       <a  href="/register" class="button button-secondary donate-now-button"
         >ডোনেট করুন</a
@@ -35,3 +31,17 @@
     </nav>
   </div>
 </header>
+
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+  // --- Global Navigation (Hamburger Menu) ---
+  const hamburgerMenu = document.querySelector(".hamburger-menu")
+  const navList = document.querySelector(".nav-list")
+
+  if (hamburgerMenu && navList) {
+    hamburgerMenu.addEventListener("click", () => {
+      navList.classList.toggle("active")
+    })
+  }
+})
+</script> -->

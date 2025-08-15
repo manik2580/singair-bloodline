@@ -1,19 +1,20 @@
 <section class="container page-content">
   <div class="search-form">
     <h2 class="page-title">ডোনার খুঁজুন</h2>
-    <form action="/search" id="donor-search-form" class=" card">
+    <form  id="donor-search-form" class=" card">
       <div class="form-group">
         <label for="blood-group">রক্তের গ্রুপ:</label>
         <select id="blood-group" name="bloodGroup">
-          <option value="">সব</option>
-          <option value="A+" <%= filters.bloodGroup === 'A+' ? 'selected' : '' %>>A+</option>
-          <option value="A-" <%= filters.bloodGroup === 'A-' ? 'selected' : '' %>>A-</option>
-          <option value="B+" <%= filters.bloodGroup === 'B+' ? 'selected' : '' %>>B+</option>
-          <option value="B-" <%= filters.bloodGroup === 'B-' ? 'selected' : '' %>>B-</option>
-          <option value="O+" <%= filters.bloodGroup === 'O+' ? 'selected' : '' %>>O+</option>
-          <option value="O-" <%= filters.bloodGroup === 'O-' ? 'selected' : '' %>>O-</option>
-          <option value="AB+" <%= filters.bloodGroup === 'AB+' ? 'selected' : '' %>>AB+</option>
-          <option value="AB-" <%= filters.bloodGroup === 'AB-' ? 'selected' : '' %>>AB-</option>
+          <option value="">নির্বাচন করুন</option>
+          <option value="all">সব</option>
+          <option value="A+" >A+</option>
+          <option value="A-" >A-</option>
+          <option value="B+" >B+</option>
+          <option value="B-" >B-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="AB+" >AB+</option>
+          <option value="AB-" >AB-</option>
         </select>
       </div>
       <div class="form-group">
@@ -23,7 +24,7 @@
           id="address"
           name="address"
           placeholder="যেমন: ঢাকা, চট্টগ্রাম"
-          value="<%= filters.address %>"
+          value=""
           class="form-control"
           max="10"
         />
@@ -43,54 +44,9 @@
     </form>
   
   </div>
-  <% if(donors.length > 0) { %>
-    <section id="search-results" class="search-results-grid">
-      <% donors.forEach(donor => { %>
-        <a href="#" class="donor-card">
-          <h4><%= donor.name %> <span class="blood-group-badge"><%= donor.bloodGroup ?? 'N/A' %></span>
-         <% 
-            let available = 'Not Available';
-            let badgeClass = 'verified-badge'; // red by default
-            if (donor.lastDonation) {
-              const last = new Date(donor.lastDonation);
-              const now = new Date();
-              const diffMonths = (now.getFullYear() - last.getFullYear()) * 12 + (now.getMonth() - last.getMonth());
-              if (diffMonths >= 4) {
-                available = 'Available';
-                badgeClass = 'verified-badge'; // green
-              }
-            }
-          %>
-
-          <span class=" <%= badgeClass %>"><%= available %></span>
-          
-          </h4>
-          <p>ঠিকানা: <%= donor.address %></p>
-          <p>পূর্বে রক্ত দিয়েছেন: <%= donor.is_donated_before ? 'হ্যাঁ' : 'না' %></p>
-          <p>মোবাইল: <span class="phone-link"><%= donor.phone %></span></p>
-        </a>
-      <% }) %>
-    </section>
-  <% } else { %>
-    <div class="alert alert-info text-center">কোন ডোনার পাওয়া যায়নি।</div>
-  <% } %>
+ 
+  <section id="search-results" class="search-results-grid"></section>
     
  
 </section>
-
-<script>
-  const resetBtn = document.getElementById('reset-search-filters');
-  const form = document.getElementById('donor-search-form');
-
-  resetBtn.addEventListener('click', () => {
-    // সব input & select ফাঁকা করা
-    form.querySelectorAll('input, select').forEach(el => {
-      el.value = '';
-      if(el.tagName === 'SELECT') el.selectedIndex = 0;
-    });
-
-    // Form submit করে fresh search page load করা
-    form.submit();
-  });
-</script>
 

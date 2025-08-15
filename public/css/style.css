@@ -21,6 +21,7 @@
     --hover-shadow-color: rgba(0, 0, 0, 0.15);
     /* Slightly more pronounced hover shadow */
     --verified-color: #28a745;
+    --not-verified-color: #495057;
     /* Green for verified */
     --hero-background-dark-gray: #343a40;
     /* Dark charcoal for hero section */
@@ -683,6 +684,18 @@ h3 {
     margin-left: 12px;
 }
 
+.not-verified-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--not-verified-color);
+    color: var(--text-light);
+    padding: 6px 12px;
+    font-size: 0.85em;
+    font-weight: 700;
+    border-radius: 6px;
+    margin-left: 12px;
+}
+
 .verified-badge {
     display: inline-flex;
     align-items: center;
@@ -930,4 +943,30 @@ h3 {
 
 .mt-40 {
     margin-top: 40px;
+}
+
+.alert{
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+.alert-info{
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    border: 1px solid #90caf9;
+}
+
+.center-404 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-404 h1 {
+  font-size: 4rem;
+  color: red;
 }

@@ -1,0 +1,20 @@
+<nav class="sidebar">
+  <h4 class="text-white text-center">ড্যাশবোর্ড</h4>
+  <hr>
+  <a
+    href="/admin/dashboard"
+    class="<%= (activePage === 'dashboard') ? 'active' : '' %>"
+    >হোম</a
+  >
+  <a
+    href="/admin/donors"
+    class="<%= (activePage === 'donors') ? 'active' : '' %>"
+    >ডোনার তালিকা</a
+  >
+  <!-- <a
+        href="/admin/settings"
+        class="<%= (activePage === 'settings') ? 'active' : '' %>"
+        >সেটিংস</a
+      > -->
+  <a href="#" id="logout">লগ আউট</a>
+</nav>

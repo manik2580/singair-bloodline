@@ -85,7 +85,7 @@ router.get('/', async (req, res) => {
       const rx = new RegExp(q, 'i');
       filters.$or = [{ name: rx }, { phone: rx }, { email: rx }];
     }
-    if (bloodGroup) filters.bloodGroup = bloodGroup;
+    if (bloodGroup && bloodGroup !== 'all') filters.bloodGroup = bloodGroup;
     if (city) filters.city = new RegExp(city, 'i');
 
     const skip = (Math.max(1, parseInt(page)) - 1) * parseInt(limit);
