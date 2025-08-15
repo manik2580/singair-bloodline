@@ -51,6 +51,7 @@
         name="phone"
         class="form-control"
         value="<%= donor.phone %>"
+        required
       />
     </div>
 
@@ -98,7 +99,6 @@
         name="lastDonation"
         class="form-control"
         value="<%= donor.lastDonation ? donor.lastDonation.toISOString().split('T')[0] : '' %>"
-        required
       />
     </div>
 
