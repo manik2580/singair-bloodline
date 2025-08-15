@@ -12,9 +12,9 @@ router.get('/dashboard', dashboardController.dashboardData);
 
 // donor routes
 router.get('/donors', donorController.listDonors);
-router.get('/donors/:id', donorController.getDonorDetails);
 router.get('/donors/create', donorController.createDonorForm);
 router.get('/donors/edit/:id', donorController.editDonorForm);
+router.get('/donors/:id', donorController.getDonorDetails);
 router.post('/donors/delete/:id', donorController.deleteDonor);
 
 

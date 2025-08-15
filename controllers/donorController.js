@@ -2,7 +2,7 @@ const Donor = require('../models/Donor');
 
 
 // List all donors with pagination and filtering
-exports.listDonors =async (req, res) => {
+exports.listDonors = async (req, res) => {
   try {
     // Query params
     const search = req.query.search ? req.query.search.trim() : '';
@@ -75,9 +75,8 @@ exports.getDonorDetails = async (req, res) => {
 
 // Render form to create a new donor
 exports.createDonorForm = (req, res) => {
-  res.render('admin/donors/create', {
+  res.render('admin/donors/create.ejs', {
     title: 'নতুন ডোনার যোগ করুন',
-    layout: 'admin/layout',
     activePage: 'donors',
     layout: 'layouts/dashboard.ejs',
   });
