@@ -486,7 +486,9 @@ h3 {
 
     /* Logo center */
     .site-title {
-        font-size: 1.2em !important;
+        /* display: none !important; */
+    
+        /* font-size: 1.2em !important; */
         /* text-align: center; */
         /* margin: 0 auto; */
     }
