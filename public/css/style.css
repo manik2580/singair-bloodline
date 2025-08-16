@@ -280,6 +280,7 @@ h3 {
 }
 
 @media (min-width: 600px) {
+   
     .hero-content h1 {
         font-size: 4.5em;
     }
@@ -497,13 +498,13 @@ h3 {
     }
 
     /* Logo center */
-    .site-title {
+    /* .site-title { */
         /* display: none !important; */
     
         /* font-size: 1.2em !important; */
         /* text-align: center; */
         /* margin: 0 auto; */
-    }
+    /* } */
 
     .donate-now-button {
         padding: 8px 15px !important;
@@ -529,6 +530,11 @@ h3 {
 }
 
 @media screen and (min-width: 320px) and (max-width: 680px) {
+     .site-logo {
+        width: 100px;
+        height: 60px;
+        /* Larger logo */
+    }
     .hero-content h1 {
         font-size: 2em;
         /* Larger heading */
