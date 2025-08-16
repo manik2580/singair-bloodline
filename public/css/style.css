@@ -477,22 +477,22 @@ h3 {
 /* Mobile layout */
 @media (max-width: 768px) {
     .header .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
         /* position: relative; */
-        padding: 10px 20px;
+        padding: 10px 20px !important;
     }
 
     /* Logo center */
     .site-title {
-        font-size: 1.4em;
-        text-align: center;
+        font-size: 1.2em !important;
+        /* text-align: center; */
         /* margin: 0 auto; */
     }
 
     .donate-now-button {
-        padding: 10px 20px !important;
+        padding: 8px 15px !important;
         /* font-weight: 700; */
     }
 
