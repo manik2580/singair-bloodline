@@ -80,9 +80,9 @@ function renderPagination(page, totalPages) {
   let html = "";
   // console.log(page,currentPage);
 
-  // if (page > 1) {
-  //   html += `<button class="page-btn" data-page="${page - 1}">Prev</button>`;
-  // }
+  if (page > 1) {
+    html += `<button class="page-btn" data-page="${page - 1}">Prev</button>`;
+  }
 
   for (let i = 1; i <= totalPages; i++) {
     html += `<button class="page-btn ${
@@ -90,9 +90,9 @@ function renderPagination(page, totalPages) {
     }" data-page="${i}">${i}</button>`;
   }
 
-  // if (page < totalPages) {
-  //   html += `<button class="page-btn" data-page="${page + 1}">Next</button>`;
-  // }
+  if (page < totalPages) {
+    html += `<button class="page-btn" data-page="${page + 1}">Next</button>`;
+  }
 
   document.getElementById("pagination").innerHTML = html;
 }
