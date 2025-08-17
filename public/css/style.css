@@ -30,7 +30,7 @@
 
 /* Base Styles */
 body {
-    font-family: "Kalpurush", "Inter", sans-serif;
+    font-family: "Kalpurush", "Roboto", sans-serif;
     /* Noto Sans Bengali for Bengali text, Inter for others */
     line-height: 1.6;
     color: var(--text-dark);
