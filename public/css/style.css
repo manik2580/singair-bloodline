@@ -542,7 +542,10 @@ h3 {
 @media screen and (min-width: 320px) and (max-width: 680px) {
     
     #mobile-bottom-nav { display: flex !important; }
-
+ .site-logo{
+        width: 250px;
+        margin-left: -40px !important;
+    }
     /* popover css  */
     #popover {
       position: fixed;
@@ -581,12 +584,7 @@ h3 {
     }
 
 
-     .site-logo {
-        width: 250px;
-        max-height: 40px;
-        margin-left: -40px !important;
-        /* Larger logo */
-    }
+ 
 
     
     .hero-content h1 {
