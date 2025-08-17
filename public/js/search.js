@@ -81,7 +81,7 @@ function renderPagination(page, totalPages) {
   // console.log(page,currentPage);
 
   if (page > 1) {
-    html += `<button class="page-btn" data-page="${page - 1}">Prev</button>`;
+    html += `<button class="page-btn" data-page="${page - 1}">আগে</button>`;
   }
 
   for (let i = 1; i <= totalPages; i++) {
@@ -91,7 +91,7 @@ function renderPagination(page, totalPages) {
   }
 
   if (page < totalPages) {
-    html += `<button class="page-btn" data-page="${page + 1}">Next</button>`;
+    html += `<button class="page-btn" data-page="${page + 1}">পরবর্তী</button>`;
   }
 
   document.getElementById("pagination").innerHTML = html;
