@@ -8,7 +8,7 @@ exports.listDonors = async (req, res) => {
     const search = req.query.search ? req.query.search.trim() : '';
     const bloodGroup = req.query.bloodGroup || '';
     const page = parseInt(req.query.page) || 1;
-    const limit = 5; // donors per page
+    const limit = 20; // donors per page
 
     // Build MongoDB filter
     let filter = {};

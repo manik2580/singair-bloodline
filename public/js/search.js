@@ -1,23 +1,31 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("donor-search-form");
-  const results = document.getElementById("search-results");
-  const resetBtn = document.getElementById("reset-search-filters");
-  const bloodGroups = document.querySelectorAll("input[name='bloodGroup']");
+// document.addEventListener("DOMContentLoaded", () => {
+const form = document.getElementById("donor-search-form");
+const results = document.getElementById("search-results");
+const resetBtn = document.getElementById("reset-search-filters");
+const bloodGroups = document.querySelectorAll("input[name='bloodGroup']");
 
-  async function fetchDonors(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    const res = await fetch(`/api/donors?${query}`);
-    const data = await res.json();
+let currentPage = 1;
+const limit = 20;
 
-    if (!data.donors.length) {
-      results.innerHTML =
-        '<div class="alert alert-info text-center">কোন ডোনার পাওয়া যায়নি।</div>';
-      return;
-    }
+async function fetchDonors(params = {}) {
+  params.page = params.page || currentPage;
+  params.limit = limit;
 
-    results.innerHTML = data.donors
-      .map(
-        (donor) => `
+  const query = new URLSearchParams(params).toString();
+  const res = await fetch(`/api/donors?${query}`);
+  const data = await res.json();
+
+  if (!data.donors.length) {
+    results.innerHTML =
+      '<div class="alert alert-info text-center">কোন ডোনার পাওয়া যায়নি।</div>';
+
+    document.getElementById("pagination").innerHTML = "";
+    return;
+  }
+
+  results.innerHTML = data.donors
+    .map(
+      (donor) => `
         <a href="#" class="donor-card">
           <h4>
             ${donor.name} 
@@ -30,33 +38,100 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>মোবাইল: <span class="phone-link">${donor.phone || "-"}</span></p>
         </a>
       `
-      )
-      .join("");
+    )
+    .join("");
+
+  // pagination buttons
+  const totalRecords = data.total;
+  if (totalRecords > limit) {
+    renderPagination(data.page, data.totalPages);
+  } else {
+    document.getElementById("pagination").innerHTML = "";
+  }
+}
+
+// On form submit
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const bloodGroup = document.getElementById("blood-group").value;
+  const errorDiv = document.getElementById("bloodGroupError");
+  if (!bloodGroup) {
+    errorDiv.style.display = "block"; // Show error
+    return; // Prevent form submission
+  } else {
+    errorDiv.style.display = "none"; // Hide error if valid
+  }
+  const formData = new FormData(form);
+  const filters = Object.fromEntries(formData);
+  fetchDonors(filters);
+});
+
+// Reset filters
+resetBtn.addEventListener("click", () => {
+  form.reset();
+  // fetchDonors();
+  results.innerHTML = "";
+});
+
+// Load donors initially
+//   fetchDonors();
+
+function renderPagination(page, totalPages) {
+  let html = "";
+  // console.log(page,currentPage);
+
+  // if (page > 1) {
+  //   html += `<button class="page-btn" data-page="${page - 1}">Prev</button>`;
+  // }
+
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="page-btn ${
+      i == page ? "active" : ""
+    }" data-page="${i}">${i}</button>`;
   }
 
-  // On form submit
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const bloodGroup = document.getElementById('blood-group').value;
-    const errorDiv = document.getElementById('bloodGroupError');
-    if (!bloodGroup) {
-      errorDiv.style.display = 'block'; // Show error
-      return; // Prevent form submission
-    } else {
-      errorDiv.style.display = 'none'; // Hide error if valid
-    }
-    const formData = new FormData(form);
-    const filters = Object.fromEntries(formData);
-    fetchDonors(filters);
-  });
+  // if (page < totalPages) {
+  //   html += `<button class="page-btn" data-page="${page + 1}">Next</button>`;
+  // }
 
-  // Reset filters
-  resetBtn.addEventListener("click", () => {
-    form.reset();
-    // fetchDonors();
-    results.innerHTML = "";
-  });
+  document.getElementById("pagination").innerHTML = html;
+}
 
-  // Load donors initially
-//   fetchDonors();
+// Event delegation
+document.getElementById("pagination").addEventListener("click", (e) => {
+  if (e.target.dataset.page) {
+    const page = parseInt(e.target.dataset.page);
+    currentPage = page;
+    fetchDonors({ page });
+  }
 });
+
+// function renderPagination(page, totalPages) {
+//   let html = "";
+
+//   if (page > 1) {
+//     html += `<button class="btn btn-sm btn-outline-primary" onclick="goToPage(${
+//       page - 1
+//     })">Prev</button>`;
+//   }
+
+//   for (let i = 1; i <= totalPages; i++) {
+//     html += `<button class="btn btn-sm ${
+//       i === page ? "btn-primary" : "btn-outline-primary"
+//     }" onclick="goToPage(${i})">${i}</button>`;
+//   }
+
+//   if (page < totalPages) {
+//     html += `<button class="btn btn-sm btn-outline-primary" onclick="goToPage(${
+//       page + 1
+//     })">Next</button>`;
+//   }
+
+//   document.getElementById("pagination").innerHTML = html;
+// }
+
+// const goToPage = (page) => {
+//   currentPage = page;
+//   fetchDonors({ page });
+// }
+// });
