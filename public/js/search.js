@@ -5,7 +5,7 @@ const resetBtn = document.getElementById("reset-search-filters");
 const bloodGroups = document.querySelectorAll("input[name='bloodGroup']");
 
 let currentPage = 1;
-const limit = 20;
+const limit = 2000;
 
 async function fetchDonors(params = {}) {
   params.page = params.page || currentPage;
