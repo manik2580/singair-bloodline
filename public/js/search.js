@@ -2,10 +2,12 @@
 const form = document.getElementById("donor-search-form");
 const results = document.getElementById("search-results");
 const resetBtn = document.getElementById("reset-search-filters");
-const bloodGroups = document.querySelectorAll("input[name='bloodGroup']");
+const pagination = document.getElementById("pagination");
+// const bloodGroups = document.querySelectorAll("input[name='bloodGroup']");
 
 let currentPage = 1;
-const limit = 2000;
+const limit = 20;
+let bloodGroup = "";
 
 async function fetchDonors(params = {}) {
   params.page = params.page || currentPage;
@@ -19,10 +21,11 @@ async function fetchDonors(params = {}) {
     results.innerHTML =
       '<div class="alert alert-info text-center">কোন ডোনার পাওয়া যায়নি।</div>';
 
-    document.getElementById("pagination").innerHTML = "";
+    pagination.innerHTML = "";
     return;
   }
 
+  bloodGroup = params.bloodGroup || "";
   results.innerHTML = data.donors
     .map(
       (donor) => `
@@ -46,7 +49,7 @@ async function fetchDonors(params = {}) {
   if (totalRecords > limit) {
     renderPagination(data.page, data.totalPages);
   } else {
-    document.getElementById("pagination").innerHTML = "";
+    pagination.innerHTML = "";
   }
 }
 
@@ -55,6 +58,8 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   const bloodGroup = document.getElementById("blood-group").value;
   const errorDiv = document.getElementById("bloodGroupError");
+  currentPage = 1; // Reset to first page on new search
+
   if (!bloodGroup) {
     errorDiv.style.display = "block"; // Show error
     return; // Prevent form submission
@@ -71,6 +76,8 @@ resetBtn.addEventListener("click", () => {
   form.reset();
   // fetchDonors();
   results.innerHTML = "";
+  pagination.innerHTML = "";
+  currentPage = 1; // Reset to first page
 });
 
 // Load donors initially
@@ -94,11 +101,11 @@ function renderPagination(page, totalPages) {
     html += `<button class="page-btn" data-page="${page + 1}">পরবর্তী</button>`;
   }
 
-  document.getElementById("pagination").innerHTML = html;
+  pagination.innerHTML = html;
 }
 
 // Event delegation
-document.getElementById("pagination").addEventListener("click", (e) => {
+pagination.addEventListener("click", (e) => {
   if (e.target.dataset.page) {
     const page = parseInt(e.target.dataset.page);
     currentPage = page;
