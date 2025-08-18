@@ -28,7 +28,7 @@ form.addEventListener("submit", async (e) => {
         const field = form.elements[key];
         if (field) {
           if (field.type === "checkbox") {
-            field.checked = formData[key] === "1";
+            field.checked = formData[key] === "1","2";
           } else {
             field.value = formData[key];
           }
