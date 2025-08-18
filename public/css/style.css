@@ -40,6 +40,13 @@ body {
     font-size: 16px;
 }
 
+:lang(bn), .bn {
+  font-family: 'Kalpurush', 'Noto Sans Bengali', 'Hind Siliguri', 'SolaimanLipi', system-ui, sans-serif;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
