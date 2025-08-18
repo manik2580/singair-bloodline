@@ -109,7 +109,7 @@ pagination.addEventListener("click", (e) => {
   if (e.target.dataset.page) {
     const page = parseInt(e.target.dataset.page);
     currentPage = page;
-    fetchDonors({ page });
+    fetchDonors({ page, bloodGroup });
   }
 });
 
