@@ -20,9 +20,20 @@
         <strong>সর্বশেষ রক্ত দিয়েছেন:</strong>
         <%= donor.lastDonation ? new
         Date(donor.lastDonation).toLocaleDateString('bn-BD') : 'N/A' %>
+        <br />
+        <strong>ভেরিফাইড:</strong> <%= donor.is_verified ? 'হ্যাঁ' : 'না' %><br />
       </p>
     </div>
     <div class="card-footer d-flex justify-content-end">
+      <form 
+        action="/admin/donors/verify/<%= donor.id %>" 
+        method="POST"
+        onsubmit="return confirm('আপনি কি এই ডোনারকে ভেরিফাই করতে চান?');"
+        class="me-2" 
+        >
+         <button type="submit" class="btn btn-<%=donor.is_verified ? 'danger' : 'success'%>" > ✉ <%= donor.is_verified ? 'ভেরিফাই বাতিল করুণ' : 'ভেরিফাই করুন' %></button>
+      </form>
+
       <a href="/admin/donors/edit/<%= donor.id %>" class="btn btn-primary me-2"
         >✏ সম্পাদনা</a
       >

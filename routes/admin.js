@@ -16,6 +16,7 @@ router.get('/donors/create', donorController.createDonorForm);
 router.get('/donors/edit/:id', donorController.editDonorForm);
 router.get('/donors/:id', donorController.getDonorDetails);
 router.post('/donors/delete/:id', donorController.deleteDonor);
+router.post('/donors/verify/:id', donorController.verifyDonor);
 
 
 

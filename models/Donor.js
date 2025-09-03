@@ -7,7 +7,8 @@ const DonorSchema = new mongoose.Schema({
   city: { type: String, trim: true },
   address: { type: String, trim: true },
   is_donated_before: { type: Boolean, default: false },
-  lastDonation: { type: Date }
+  lastDonation: { type: Date },
+  is_verified: { type: Boolean, default: false },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Donor', DonorSchema);
