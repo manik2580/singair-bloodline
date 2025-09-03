@@ -839,19 +839,22 @@ h3 {
 }
 
 .verified-badge {
-    display: inline-flex;
+     display: inline-flex;
     align-items: center;
-    background-color: var(--verified-color);
-    color: var(--text-light);
-    padding: 6px 12px;
-    font-size: 0.85em;
-    font-weight: 700;
-    border-radius: 6px;
-    margin-left: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #198754; /* Bootstrap success green */
+    background-color: #e9f9f0;
+    border: 1px solid #198754;
+    border-radius: 20px;
+    padding: 2px 8px;
+    margin-left: 8px;
 }
 
 .verified-badge i {
-    margin-right: 6px;
+    font-size: 1rem;
+    margin-right: 4px;
+    color: #198754;
 }
 
 .no-results {

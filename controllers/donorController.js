@@ -113,3 +113,20 @@ exports.deleteDonor = async(req, res) => {
   }
 }
 
+// Verify a donor
+exports.verifyDonor = async(req, res) => {
+  const donorId = req.params.id;
+  try {
+    const donor = await Donor.findById(donorId);
+    if (!donor) {
+      return res.status(404).send('Donor not found');
+    }
+    donor.is_verified = !donor.is_verified;
+    await donor.save();
+    res.redirect(`/admin/donors/${donorId}`);
+  } catch (err) {
+    console.error('Error verifying donor:', err);
+    res.status(500).send('Server error');
+  }
+}
+

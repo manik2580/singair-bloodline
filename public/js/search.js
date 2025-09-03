@@ -32,6 +32,10 @@ async function fetchDonors(params = {}) {
         <a href="#" class="donor-card">
           <h4>
             ${donor.name} 
+             ${donor.is_verified 
+            ?'<span class="verified-badge"> Verified</span>' 
+            : ''
+          }
             <span class="blood-group-badge">${donor.bloodGroup || "N/A"}</span>
           </h4>
           <p>ঠিকানা: ${donor.address || "-"}</p>
