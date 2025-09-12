@@ -28,23 +28,30 @@ async function fetchDonors(params = {}) {
   bloodGroup = params.bloodGroup || "";
   results.innerHTML = data.donors
     .map(
-      (donor) => `
+      (donor) => {
+        const donorStatus = getDonorStatus(donor.lastDonation);
+        return `
         <a href="#" class="donor-card">
           <h4>
             ${donor.name} 
-             ${donor.is_verified 
-            ?'<span class="verified-badge"> Verified</span>' 
-            : ''
-          }
+             ${
+               donor.is_verified
+                 ? '<span class="verified-badge"> Verified</span>'
+                 : ""
+             }
             <span class="blood-group-badge">${donor.bloodGroup || "N/A"}</span>
           </h4>
           <p>ঠিকানা: ${donor.address || "-"}</p>
           <p>পূর্বে রক্ত দিয়েছেন: ${
             donor.is_donated_before ? "হ্যাঁ" : "না"
           }</p>
+         <p>
+            ডোনার স্ট্যাটাসঃ <span class="${donorStatus.color}"> ${donorStatus.text}</span>
+          </p>
           <p>মোবাইল: <span class="phone-link">${donor.phone || "-"}</span></p>
         </a>
-      `
+      `;
+      }
     )
     .join("");
 
@@ -146,3 +153,25 @@ pagination.addEventListener("click", (e) => {
 //   fetchDonors({ page });
 // }
 // });
+
+// ধরুন donor.last_donation_date এ ডেটা আছে
+const getDonorStatus = (lastDonationDate) => {
+  if (!lastDonationDate) {
+    return { text: "তথ্য প্রদান করা হয়নি", color: "text-secondary" };
+  }
+
+  const lastDate = new Date(lastDonationDate);
+  const today = new Date();
+
+  const diffMonths =
+    (today.getFullYear() - lastDate.getFullYear()) * 12 +
+    (today.getMonth() - lastDate.getMonth());
+
+  if (diffMonths >= 4) {
+    return { text: "Available", color: "text-success" };
+  } else {
+    return { text: "Not Available", color: "text-danger" };
+  }
+};
+
+// const donorStatus = getDonorStatus(donor.lastDonation);

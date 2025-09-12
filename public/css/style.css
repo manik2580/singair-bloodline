@@ -1116,9 +1116,23 @@ h3 {
     color: red;
 }
 
+.text-success {
+    color: var(--verified-color);
+}
+
 .text-danger {
     color: var(--primary-red-dark);
 }
+
+.text-dark {
+    color: var(--text-dark);
+}
+
+.text-secondary {
+    color: var(--text-medium);
+}
+
+
 
 .donated-checkbox {
     display: flex;
@@ -1168,3 +1182,5 @@ h3 {
   font-weight: bold;
   cursor: default;
 }
+
+

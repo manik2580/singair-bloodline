@@ -28,7 +28,10 @@
       <form 
         action="/admin/donors/verify/<%= donor.id %>" 
         method="POST"
-        onsubmit="return confirm('আপনি কি এই ডোনারকে ভেরিফাই করতে চান?');"
+        onsubmit="return confirm(
+          `<%=donor.is_verified 
+          ? 'আপনি কি এই ডোনারের ভেরিফাই বাতিল করতে চান?' 
+          : 'আপনি কি এই ডোনারকে ভেরিফাই করতে চান?'%>`);"
         class="me-2" 
         >
          <button type="submit" class="btn btn-<%=donor.is_verified ? 'danger' : 'success'%>" > ✉ <%= donor.is_verified ? 'ভেরিফাই বাতিল করুণ' : 'ভেরিফাই করুন' %></button>

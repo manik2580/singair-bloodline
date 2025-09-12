@@ -22,7 +22,7 @@ exports.dashboardData = async (req, res) => {
         const diffMonths =
           (now.getFullYear() - last.getFullYear()) * 12 +
           (now.getMonth() - last.getMonth());
-        if (diffMonths < 4) availableDonors++;
+        if (diffMonths >= 4) availableDonors++;
         else notAvailableDonors++;
       } else {
         notAvailableDonors++;
