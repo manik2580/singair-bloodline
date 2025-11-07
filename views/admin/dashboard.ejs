@@ -1,5 +1,4 @@
 <h2>স্বাগতম, অ্যাডমিন!</h2>
-<p>এখানে আপনি ড্যাশবোর্ডের প্রধান তথ্য দেখতে পাবেন।</p>
 
 <div class="row">
   <!-- Total Donors -->
@@ -41,5 +40,138 @@
       </div>
     </div>
   </div>
+
+  <!-- Chart Section -->
+   <!-- Chart 1: Donor Status -->
+   <div class="col-md-4">
+     <div class="card mt-4">
+       <div class="card-body" style="max-width:100%; height:300px; margin:0 auto;">
+         <canvas id="donorStatusChart"></canvas>
+       </div>
+     </div>
+   </div>
+
+  <!-- Chart 2: Monthly User Registration -->
+   <div class="col-md-4">
+     <div class="card mt-4">
+       <div class="card-body" style="max-width:100%; height:300px; margin: 0 auto;">
+         <canvas id="monthlyRegistrationChart"></canvas>
+       </div>
+     </div>
+   </div>
+
+    <!-- Chart 3: Blood Group Distribution -->
+   <div class="col-md-4">
+     <div class="card mt-4">
+       <div class="card-body" style="max-width:350px; height:300px; margin:0 auto;">
+         <canvas id="bloodGroupChart"></canvas>
+       </div>
+     </div>
+   </div>
+
+  <!-- Latest Donor List -->
+   <div class="col-md-12">
+     <div class="card mt-4">
+       <div class="card-body">
+         <h5 class="card-title">ডোনার তালিকা</h5>
+         <!-- Table -->
+         <table class="table table-striped table-hover align-middle">
+           <thead class="table-dark">
+             <tr>
+               <!-- <th>সিরিয়াল</th> -->
+               <th>নাম</th>
+               <th>রক্তের গ্রুপ</th>
+               <th>ফোন</th>
+               <!-- <th>ঠিকানা</th> -->
+               <!-- <th>পূর্বে রক্ত দিয়েছেন</th> -->
+               <th>সর্বশেষ রক্ত দিয়েছেন</th>
+             </tr>
+           </thead>
+           <tbody>
+             <% if (latestDonors && latestDonors.length > 0) { %> <% latestDonors.forEach((donor,
+             index)=> { %>
+             <tr>
+               <td><%= donor.name %></td>
+               <td><%= donor.bloodGroup ?? 'N/A' %></td>
+               <td><%= donor.phone %></td>
+               <!-- <td><%= donor.address %></td> -->
+               <!-- <td><%= donor.is_donated_before ? 'হ্যাঁ' : 'না' %></td> -->
+               <td>
+                 <%= donor.lastDonation ? new
+                 Date(donor.lastDonation).toLocaleDateString('bn-BD') : 'N/A' %>
+               </td>
+              
+             </tr>
+             <% }) %> <% } else { %>
+             <tr>
+               <td colspan="8" class="text-center">কোন ডোনার পাওয়া যায়নি।</td>
+             </tr>
+             <% } %>
+           </tbody>
+         </table>
+   
+       </div>
+     </div>
+   </div>
 </div>
 
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+      // === Chart 1: Donor Status ===
+  new Chart(document.getElementById('donorStatusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Available', 'Not Available', 'পূর্বে রক্ত দিয়েছিল'],
+      datasets: [{
+        data: [<%= availableDonors %>, <%= notAvailableDonors %>, <%= donatedBefore %>],
+        backgroundColor: ['#198754', '#dc3545', '#ffc107'],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+        title: { display: true, text: 'ডোনার স্ট্যাটাস' }
+      }
+    }
+  });
+
+   // === Chart 2: Monthly Registration (Bar) ===
+  new Chart(document.getElementById('monthlyRegistrationChart'), {
+    type: 'bar',
+    data: {
+      labels: <%- JSON.stringify(months) %>, // যেমন ['Jan', 'Feb', 'Mar', ...]
+      datasets: [{
+        label: 'নতুন রেজিস্ট্রেশন',
+        data: <%- JSON.stringify(monthlyRegistrations) %>, // যেমন [12, 20, 15, ...]
+        backgroundColor: '#0d6efd',
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  // === Chart 3: Blood Group Distribution ===
+  new Chart(document.getElementById('bloodGroupChart'), {
+    type: 'pie',
+    data: {
+      labels: <%- JSON.stringify(bloodGroups) %>, // যেমন ['A+', 'A-', 'B+', 'O+', ...]
+      datasets: [{
+        data: <%- JSON.stringify(bloodGroupCounts) %>, // যেমন [10, 5, 12, 8, ...]
+        backgroundColor: ['#dc3545', '#0d6efd', '#198754', '#ffc107', '#6610f2', '#fd7e14', '#20c997', '#6c757d'],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+        title: { display: true, text: 'রক্তের গ্রুপ অনুযায়ী ডোনার সংখ্যা' }
+      }
+    }
+  });
+</script>
