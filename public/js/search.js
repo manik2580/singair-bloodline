@@ -9,26 +9,34 @@ let currentPage = 1;
 const limit = 20;
 let bloodGroup = "";
 
+const loader = document.getElementById("loader");
+const searchBtn = form.querySelector('button[type="submit"]');
+
 async function fetchDonors(params = {}) {
   params.page = params.page || currentPage;
   params.limit = limit;
 
-  const query = new URLSearchParams(params).toString();
-  const res = await fetch(`/api/donors?${query}`);
-  const data = await res.json();
+  // Show loader and clear current results
+  loader.style.display = "flex";
+  results.innerHTML = "";
+  pagination.innerHTML = "";
+  if (searchBtn) searchBtn.disabled = true;
 
-  if (!data.donors.length) {
-    results.innerHTML =
-      '<div class="alert alert-info text-center">কোন ডোনার পাওয়া যায়নি।</div>';
+  try {
+    const query = new URLSearchParams(params).toString();
+    const res = await fetch(`/api/donors?${query}`);
+    const data = await res.json();
 
-    pagination.innerHTML = "";
-    return;
-  }
+    if (!data.donors.length) {
+      results.innerHTML =
+        '<div class="alert alert-info text-center">কোন ডোনার পাওয়া যায়নি।</div>';
+      pagination.innerHTML = "";
+      return;
+    }
 
-  bloodGroup = params.bloodGroup || "";
-  results.innerHTML = data.donors
-    .map(
-      (donor) => {
+    bloodGroup = params.bloodGroup || "";
+    results.innerHTML = data.donors
+      .map((donor) => {
         const donorStatus = getDonorStatus(donor.lastDonation);
         return `
         <a href="#" class="donor-card">
@@ -42,25 +50,32 @@ async function fetchDonors(params = {}) {
             <span class="blood-group-badge">${donor.bloodGroup || "N/A"}</span>
           </h4>
           <p>ঠিকানা: ${donor.address || "-"}</p>
-          <p>পূর্বে রক্ত দিয়েছেন: ${
-            donor.is_donated_before ? "হ্যাঁ" : "না"
-          }</p>
+          <p>পূর্বে রক্ত দিয়েছেন: ${donor.is_donated_before ? "হ্যাঁ" : "না"}</p>
          <p>
-            ডোনার স্ট্যাটাসঃ <span class="${donorStatus.color}"> ${donorStatus.text}</span>
+            ডোনার স্ট্যাটাসঃ <span class="${donorStatus.color}"> ${
+          donorStatus.text
+        }</span>
           </p>
           <p>মোবাইল: <span class="phone-link">${donor.phone || "-"}</span></p>
         </a>
       `;
-      }
-    )
-    .join("");
+      })
+      .join("");
 
-  // pagination buttons
-  const totalRecords = data.total;
-  if (totalRecords > limit) {
-    renderPagination(data.page, data.totalPages);
-  } else {
-    pagination.innerHTML = "";
+    // pagination buttons
+    const totalRecords = data.total;
+    if (totalRecords > limit) {
+      renderPagination(data.page, data.totalPages);
+    } else {
+      pagination.innerHTML = "";
+    }
+  } catch (error) {
+    console.error("Error fetching donors:", error);
+    results.innerHTML = '<div class="alert alert-danger text-center">সার্ভারে সমস্যা হয়েছে। আবার চেষ্টা করুন।</div>';
+  } finally {
+    // Hide loader and enable search button
+    loader.style.display = "none";
+    if (searchBtn) searchBtn.disabled = false;
   }
 }
 
