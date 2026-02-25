@@ -26,10 +26,11 @@
       }
       .content {
         margin-left: 220px;
+        margin-top: 60px;
         padding: 20px;
         flex-grow: 1;
         background: #f8f9fa;
-        min-height: 100vh;
+        min-height: calc(100vh - 60px);
       }
       .header {
         position: fixed;

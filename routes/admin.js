@@ -18,6 +18,15 @@ router.get('/donors/:id', donorController.getDonorDetails);
 router.post('/donors/delete/:id', donorController.deleteDonor);
 router.post('/donors/verify/:id', donorController.verifyDonor);
 
+// User Management Routes
+const adminUserController = require('../controllers/adminUserController');
+router.get('/users', adminUserController.listUsers);
+router.get('/users/create', adminUserController.createUserForm);
+router.post('/users/create', adminUserController.storeUser);
+router.get('/users/edit/:id', adminUserController.editUserForm);
+router.post('/users/edit/:id', adminUserController.updateUser);
+router.post('/users/delete/:id', adminUserController.deleteUser);
+
 
 
 module.exports = router;
